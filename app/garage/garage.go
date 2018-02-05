@@ -17,6 +17,8 @@ func ValidateAndGetToken() (string, error) {
 	username := os.Getenv("catmulltrim@gmail.com")
 	password := os.Getenv("Im2L84Dinner@jacks")
 
+	fmt.Println(username + password)
+
 	validation := Validate{username, password}
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(validation)
@@ -36,6 +38,8 @@ func ValidateAndGetToken() (string, error) {
 	resp_body, _ := ioutil.ReadAll(resp.Body)
 
 	json.Unmarshal(resp_body, &vr)
+
+	fmt.Println(vr.SecurityToken)
 
 	return vr.SecurityToken, err
 }
@@ -57,6 +61,8 @@ func ChangeStatusOfGarage(state string) string {
 
 	payload := strings.NewReader(fmt.Sprintf("{\n\t\"attributeName\": \"desireddoorstate\",\n\t\"myQDeviceId\": \"1702462521\",\n\t\"AttributeValue\": \"%s\"\n}", state))
 
+	fmt.Println(payload)
+
 	req, _ := http.NewRequest("PUT", url, payload)
 	req.Header.Set("myqapplicationid", "OA9I/hgmPHFp9RYKJqCKfwnhh28uqLJzZ9KOJf1DXoo8N2XAaVX6A1wcLYyWsnnv")
 	req.Header.Set("securitytoken", token)
@@ -68,6 +74,8 @@ func ChangeStatusOfGarage(state string) string {
 	defer resp.Body.Close()
 
 	body,_ := ioutil.ReadAll(resp.Body)
+
+	fmt.Println(body)
 
 	return string(body)
 }
