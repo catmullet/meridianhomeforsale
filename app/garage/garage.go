@@ -14,8 +14,8 @@ func ValidateAndGetToken() (string, error) {
 	vr := ValidateResponse{}
 	client := &http.Client{}
 
-	username := os.Getenv("USER")
-	password := os.Getenv("PASS")
+	username := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
 
 	validation := Validate{username, password}
 	b := new(bytes.Buffer)
