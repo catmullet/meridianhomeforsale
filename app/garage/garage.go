@@ -14,15 +14,15 @@ func ValidateAndGetToken() (string, error) {
 	vr := ValidateResponse{}
 	client := &http.Client{}
 
-	username := os.Getenv("USERNAME")
-	password := os.Getenv("PASSWORD")
+	username := os.Getenv("catmulltrim@gmail.com")
+	password := os.Getenv("Im2L84Dinner@jacks")
 
 	validation := Validate{username, password}
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(validation)
 
 	req, _ := http.NewRequest("POST", "https://myqexternal.myqdevice.com/api/v4/User/Validate", b)
-	req.Header.Set("MyQApplicationId", os.Getenv("APP_ID"))
+	req.Header.Set("MyQApplicationId", "OA9I/hgmPHFp9RYKJqCKfwnhh28uqLJzZ9KOJf1DXoo8N2XAaVX6A1wcLYyWsnnv")
 	req.Header.Set("Content-Type","application/json")
 
 	resp, err := client.Do(req)
@@ -53,14 +53,12 @@ func CloseGarage(firstname, lastname, phone string) string {
 func ChangeStatusOfGarage(state string) string {
 	token,_ := ValidateAndGetToken()
 
-	deviceId := os.Getenv("MYDEVICEID")
 	url := "https://myqexternal.myqdevice.com/api/v4/DeviceAttribute/PutDeviceAttribute"
-	appID := os.Getenv("APP_ID")
 
-	payload := strings.NewReader(fmt.Sprintf("{\n\t\"attributeName\": \"desireddoorstate\",\n\t\"myQDeviceId\": \"%s\",\n\t\"AttributeValue\": \"%s\"\n}", deviceId, state))
+	payload := strings.NewReader(fmt.Sprintf("{\n\t\"attributeName\": \"desireddoorstate\",\n\t\"myQDeviceId\": \"1702462521\",\n\t\"AttributeValue\": \"%s\"\n}", state))
 
 	req, _ := http.NewRequest("PUT", url, payload)
-	req.Header.Set("myqapplicationid", appID)
+	req.Header.Set("myqapplicationid", "OA9I/hgmPHFp9RYKJqCKfwnhh28uqLJzZ9KOJf1DXoo8N2XAaVX6A1wcLYyWsnnv")
 	req.Header.Set("securitytoken", token)
 	req.Header.Add("cache-control", "no-cache")
 	req.Header.Set("content-type","application/json")
