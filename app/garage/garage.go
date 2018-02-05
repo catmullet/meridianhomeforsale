@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"encoding/json"
 	"bytes"
 	"strings"
@@ -14,10 +13,8 @@ func ValidateAndGetToken() (string, error) {
 	vr := ValidateResponse{}
 	client := &http.Client{}
 
-	username := os.Getenv("catmulltrim@gmail.com")
-	password := os.Getenv("Im2L84Dinner@jacks")
-
-	fmt.Println(username + password)
+	username := "catmulltrim@gmail.com"
+	password := "Im2L84Dinner@jacks"
 
 	validation := Validate{username, password}
 	b := new(bytes.Buffer)
@@ -61,8 +58,6 @@ func ChangeStatusOfGarage(state string) string {
 
 	payload := strings.NewReader(fmt.Sprintf("{\n\t\"attributeName\": \"desireddoorstate\",\n\t\"myQDeviceId\": \"1702462521\",\n\t\"AttributeValue\": \"%s\"\n}", state))
 
-	fmt.Println(payload)
-
 	req, _ := http.NewRequest("PUT", url, payload)
 	req.Header.Set("myqapplicationid", "OA9I/hgmPHFp9RYKJqCKfwnhh28uqLJzZ9KOJf1DXoo8N2XAaVX6A1wcLYyWsnnv")
 	req.Header.Set("securitytoken", token)
@@ -74,8 +69,6 @@ func ChangeStatusOfGarage(state string) string {
 	defer resp.Body.Close()
 
 	body,_ := ioutil.ReadAll(resp.Body)
-
-	fmt.Println(body)
 
 	return string(body)
 }
